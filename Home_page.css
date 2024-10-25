@@ -1,0 +1,393 @@
+* {
+    margin: 0; /* รีเซ็ตค่า margin */
+    padding: 0; /* รีเซ็ตค่า padding */
+    box-sizing: border-box; /* ตั้งค่า box-sizing เป็น border-box */
+}
+.prompt-thin {
+    font-family: "Prompt", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .prompt-thin-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .prompt-extralight {
+    font-family: "Prompt", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .prompt-extralight-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .prompt-light {
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .prompt-light-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .prompt-regular {
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .prompt-regular-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .prompt-medium {
+    font-family: "Prompt", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .prompt-medium-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .prompt-semibold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .prompt-semibold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .prompt-bold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .prompt-bold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .prompt-extrabold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .prompt-extrabold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  .prompt-black {
+    font-family: "Prompt", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .prompt-black-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+body.homepage {
+    background: linear-gradient(to bottom, #ffffff, #c7e7ff); /* กำหนดพื้นหลังแบบเกรเดียนท์ */
+    color: #325079; /* กำหนดสีข้อความ */
+    width: 100vw; /* กำหนดความกว้างของหน้า */
+    height: 100vh; /* กำหนดความสูงของหน้า */
+    overflow-x: hidden; /* ซ่อนการเลื่อนแนวนอน */
+}
+
+h1, h2, h3 {
+    color: #06568f; /* กำหนดสีข้อความสำหรับ h1, h2, h3 */
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+}
+
+.container {
+    width: 90%; /* กำหนดความกว้างเป็น 90% */
+    max-width: 1200px; /* กำหนดความกว้างสูงสุดเป็น 1200px */
+    margin: 0 auto; /* จัดกลางหน้า */
+}
+
+main {
+    margin: 30px 0; /* กำหนด margin ด้านบนและล่าง */
+    padding: 0 20px; /* กำหนด padding ด้านซ้ายและขวา */
+}
+
+ul {
+    list-style: disc; /* ใช้จุดนำหน้าสำหรับรายการ */
+    padding-left: 20px; /* กำหนด padding ด้านซ้าย */
+}
+
+ul li {
+    font-size: 1.2em; /* กำหนดขนาดฟอนต์สำหรับรายการ */
+    margin-bottom: 8px; /* ระยะห่างด้านล่างของรายการ */
+}
+
+.notice {
+    margin-top: 20px; /* ระยะห่างด้านบน */
+    background-color: #fff6e0; /* กำหนดพื้นหลังสีส้มอ่อน */
+    border: 1px solid #ff9800; /* กำหนดขอบสีส้มเข้ม */
+    border-radius: 8px; /* มุมกลมของกล่อง */
+    padding: 10px; /* กำหนด padding */
+    color: #d32f2f; /* กำหนดสีข้อความเป็นแดง */
+    font-size: 1.2em; /* กำหนดขนาดฟอนต์ */
+}
+
+footer {
+    background-color: #033469; /* กำหนดพื้นหลังสีเข้ม */
+    color: #080c83; /* กำหนดสีข้อความใน footer */
+    padding: 25px; /* กำหนด padding */
+    text-align: center; /* จัดข้อความให้กึ่งกลาง */
+    margin-top: 30px; /* ระยะห่างด้านบน */
+    border-radius: 8px; /* มุมกลมของ footer */
+}
+
+footer p {
+    font-size: 0.9em; /* กำหนดขนาดฟอนต์ใน footer */
+}
+
+a {
+    color: #033469; /* กำหนดสีลิงก์ */
+    text-decoration: none; /* ไม่ให้มีเส้นใต้ */
+    transition: color 0.3s ease; /* กำหนดการเปลี่ยนสีเมื่อ hover */
+}
+
+a:hover {
+    color: #ffffff; /* กำหนดสีลิงก์เมื่อ hover */
+    text-decoration: underline; /* เพิ่มเส้นใต้เมื่อ hover */
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%; /* กำหนดให้ container กว้าง 100% บนอุปกรณ์ที่มีความกว้างน้อยกว่า 768px */
+    }
+}
+
+body.homepage {
+    background: linear-gradient(to bottom, #ffffff, #c7e7ff); /* กำหนดพื้นหลังแบบเกรเดียนท์ */
+}
+
+.divider {
+    width: 10px; /* ความกว้างของ divider */
+    height: 120px; /* ความสูงของ divider */
+    background-color: #06568f; /* กำหนดสีของ divider */
+    margin: 0 20px; /* ระยะห่างซ้ายขวา */
+    border-radius: 5px; /* มุมกลมของ divider */
+}
+
+header {
+    display: flex; /* ใช้ flexbox ใน header */
+    align-items: flex-start; /* จัดแนวไอเทมไปที่ด้านบน */
+    padding: 20px 0; /* กำหนด padding ด้านบนและล่าง */
+}
+
+.logo {
+    width: 80px; /* ความกว้างของโลโก้ */
+    margin-right: 20px; /* ระยะห่างขวาจากโลโก้ */
+}
+
+.header-text {
+    display: flex; /* ใช้ flexbox ใน header text */
+    flex-direction: column; /* แสดงเนื้อหาในแนวตั้ง */
+}
+
+h1 {
+    font-size: 2.5em; /* ขนาดฟอนต์ของ h1 */
+    color: #06568f; /* กำหนดสีของ h1 */
+    margin-bottom: 0; /* ไม่ให้มีระยะห่างด้านล่าง */
+}
+
+h2 {
+    font-size: 1.4em; /* ขนาดฟอนต์ของ h2 */
+    color: #06568f; /* กำหนดสีของ h2 */
+    margin-bottom: 0; /* ระยะห่างด้านล่าง */
+    margin-top: 10px; /* ระยะห่างด้านบน */
+}
+
+h4 {
+    font-size: 1.2em; /* ขนาดฟอนต์ของ h4 */
+    color: #06568f; /* กำหนดสีของ h4 */
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+    margin-top: 2px; /* ระยะห่างด้านบน */
+}
+
+nav ul {
+    display: flex; /* ใช้ flexbox สำหรับเมนู */
+    justify-content: space-between; /* จัดให้มีระยะห่างระหว่างเมนู */
+    background-color: #eef2ff; /* กำหนดพื้นหลังของเมนู */
+    padding: 0; /* ไม่มี padding */
+    list-style: none; /* ไม่มีจุดนำหน้าในเมนู */
+    width: 100%; /* กำหนดความกว้างของเมนู */
+}
+
+nav ul li {
+    flex: 1; /* ให้แต่ละรายการเมนูมีความกว้างเท่ากัน */
+    font-size: 1.6em; /* ขนาดฟอนต์ของเมนู */
+    padding: 15px; /* กำหนด padding */
+    text-align: center; /* จัดข้อความให้กึ่งกลาง */
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease; /* กำหนดการเปลี่ยนแปลงเมื่อ hover */
+    border: 2px solid transparent; /* กำหนดขอบแบบโปร่งใส */
+}
+
+/* กำหนดสีพื้นหลังและกรอบสำหรับแต่ละช่องในเมนู */
+nav ul li:nth-child(1) {
+    background-color: #003366; /* สีพื้นหลังช่อง 1 */
+}
+nav ul li:nth-child(1) a {
+    color: #ffffff; /* สีข้อความช่อง 1 */
+}
+
+nav ul li:nth-child(2) {
+    background-color: #f7e96b; /* สีพื้นหลังช่อง 2 */
+}
+nav ul li:nth-child(2) a {
+    color: #003366; /* สีข้อความช่อง 2 */
+}
+
+nav ul li:nth-child(3) {
+    background-color: #003366; /* สีพื้นหลังช่อง 3 */
+}
+nav ul li:nth-child(3) a {
+    color: #ffffff; /* สีข้อความช่อง 3 */
+}
+
+nav ul li:nth-child(4) {
+    background-color: #f7e96b; /* สีพื้นหลังช่อง 4 */
+}
+nav ul li:nth-child(4) a {
+    color: #003366; /* สีข้อความช่อง 4 */
+}
+
+/* สีเมื่อเมาส์วางบน */
+nav ul li:hover {
+    background-color: #808080; /* สีพื้นหลังเมื่อวางเมาส์ */
+    color: #fff !important; /* สีข้อความเมื่อวางเมาส์ */
+    border: 2px solid #808080; /* สีกรอบเมื่อวางเมาส์ */
+}
+/* เปลี่ยนสีข้อความของลิงก์เมื่อวางเมาส์ */
+nav ul li:hover a {
+    color: #ffffff; /* เปลี่ยนสีข้อความเป็นขาวเมื่อวางเมาส์ */
+}
+
+nav ul li:active {
+    background-color: #d32f2f; /* สีพื้นหลังเมื่อกด */
+    color: #fff !important; /* สีข้อความเมื่อกด */
+    border: 2px solid #d32f2f; /* สีกรอบเมื่อกด */
+}
+
+.instructions {
+    display: flex; /* ใช้ flexbox ในส่วนคำแนะนำ */
+    align-items: flex-start; /* จัดแนวไอเทมไปที่ด้านบน */
+    justify-content: flex-start; /* จัดไอเทมไปที่เริ่มต้น */
+    flex-wrap: wrap; /* ทำให้ไอเทมในส่วนนี้สามารถพับลงไปได้ */
+}
+
+.lettuce-image {
+    width: 250px; /* ความกว้างของรูปภาพผักคอส */
+    margin-right: 20px; /* ระยะห่างขวาของรูปภาพ */
+}
+
+.content {
+    max-width: 600px; /* ความกว้างสูงสุดของเนื้อหา */
+    margin-top: 0; /* ไม่ให้มีระยะห่างด้านบน */
+    text-align: left; /* จัดข้อความไปทางซ้าย */
+    margin-left: 20px; /* ระยะห่างซ้าย */
+}
+
+h3 {
+    font-size: 1.8em; /* ขนาดฟอนต์ของ h3 */
+    color: #f57c00; /* กำหนดสีของ h3 */
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+}
+
+.fixed-message {
+    position: fixed; /* ตำแหน่งเป็น fixed */
+    bottom: 0; /* อยู่ที่ด้านล่าง */
+    left: 0; /* อยู่ที่ซ้ายสุด */
+    height: 30px; /* ความสูงของแถบ */
+    width: 100%; /* ความกว้าง 100% */
+    background-color: #033c65; /* กำหนดพื้นหลังสีเข้ม */
+    padding: 10px; /* กำหนด padding */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* เงา */
+    z-index: 1000; /* ให้แสดงด้านบนสุด */
+    text-align: center; /* จัดข้อความให้กึ่งกลาง */
+    color: #fff; /* กำหนดสีข้อความเป็นขาว */
+    font-size: 14px; /* ปรับขนาดข้อความ */
+}
+
+.about-project {
+    margin: 30px 0; /* ระยะห่างด้านบนและล่าง */
+    padding: 20px; /* กำหนด padding */
+    background-color: #eef2ff; /* กำหนดพื้นหลัง */
+    border-radius: 10px; /* มุมกลมของกล่อง */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* เงา */
+}
+/* ฟอนต์ */
+p{
+    font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+h1{
+    font-family: "Prompt", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+h2{
+    font-family: "Prompt", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+h3{
+    font-family: "Prompt", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+li{
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+/* ภาพประกอบ */
+}
+.image-container {
+    display: flex; /* ใช้ Flexbox สำหรับจัดเรียงแนวนอน */
+    justify-content: center; /* จัดให้อยู่กลาง */
+    align-items: center; /* จัดให้อยู่ในแนวนอน */
+    gap: 10px; /* ระยะห่างระหว่างภาพ */
+}
+
+.lettuce-image {
+    width: 20%; /* กำหนดความกว้างของภาพผักคอส */
+    height: auto; /* ให้ความสูงปรับตามอัตราส่วน */
+}
+
+.lettuce-image-small {
+    width: 50%; /* กำหนดความกว้างของภาพที่สอง */
+    height: auto; /* ให้ความสูงปรับตามอัตราส่วน */
+}
+.IOT {
+    width: 30%; /* กำหนดความกว้างของภาพผักคอส */
+    height: auto; /* ให้ความสูงปรับตามอัตราส่วน */
+}
