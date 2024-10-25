@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Matemasie&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=TH+Sarabun+New:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'TH Sarabun New', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e6f7ff;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .half-section {
+            margin: 0 10px;
+        }
+        .averages {
+            flex: 0 0 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="image/ตรามอ.png" alt="โลโก้ตรามอ" class="logo">
+            <div class="divider"></div>
+            <div class="header-text">
+                <div class="fixed-message">
+                    เว็บไซต์นี้จัดทำเพื่อการแสดงผลข้อมูลโรงเรือนปลูกผักกาดคอส สาขาอุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
+                </div>
+                <h1>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
+                <h2>สาขาอุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</h2>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">หน้าแรก</a></li>
+                        <li><a href="project.html">เกี่ยวกับโครงการ</a></li>
+                        <li><a href="information.html">ข้อมูลการปลูก</a></li>
+                        <li><a href="team.html">คณะผู้จัดทำ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="flex-container">
+                <div class="half-section instructions">
+                    <h1>ข้อมูลการปลูกจาก Google Sheets</h1>
+
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th>วันที่</th>
+                                <th>อุณหภูมิ</th>
+                                <th>ความชื้น</th>
+                                <th>ค่า EC</th>
+                                <th>ค่า pH</th>
+                                <th>ระดับน้ำ</th>
+                                <th>ระดับแสง</th>
+                                <th>ภาพ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ข้อมูลจะถูกเพิ่มที่นี่ผ่าน JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="half-section averages">
+                    <h2>การแสดงฟังก์ชันค่าเฉลี่ย</h2>
+                    <p>อุณหภูมิ: <span id="avg-temp">xx</span></p>
+                    <p>ความชื้น: <span id="avg-humidity">xx</span></p>
+                    <p>ค่า EC: <span id="avg-ec">xx</span></p>
+                    <p>ค่า pH: <span id="avg-ph">xx</span></p>
+                    <p>ระดับน้ำ: <span id="avg-water">xx</span></p>
+                    <p>ระดับแสง: <span id="avg-light">xx</span></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        async function fetchData() {
+            const apiKey = 'AIzaSyCGrsJ6Dv9YDyISr0L4wpfh3dFsua_hKv8'; // ใส่ Google Sheets API Key ของคุณ
+            const spreadsheetId = '1VUMZK4r1qx4F26SNQ6CuWnEUiehIpFPWtt-IyqWEYFA'; // ใส่ Spreadsheet ID ของคุณ
+            const range = 'AA1!A2:J'; // เลือกช่วงข้อมูลใน Sheets ของคุณ
+
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            const tableBody = document.querySelector('#data-table tbody');
+
+            if (data.values && data.values.length > 0) {
+                let totalTemp = 0, totalHumidity = 0, totalEC = 0, totalPH = 0, totalWater = 0, totalLight = 0;
+                let count = 0;
+
+                tableBody.innerHTML = '';
+
+                data.values.forEach(row => {
+                    const date = row[0];
+                    const temp = parseFloat(row[1]) || 0;
+                    const humidity = parseFloat(row[2]) || 0;
+                    const ec = parseFloat(row[3]) || 0;
+                    const ph = parseFloat(row[4]) || 0;
+                    const water = parseFloat(row[5]) || 0;
+                    const light = parseFloat(row[6]) || 0;
+                    const imageUrl = row[7]; // ใช้ลิงก์ที่เก็บไว้ใน Google Sheets โดยตรง
+
+                    totalTemp += temp;
+                    totalHumidity += humidity;
+                    totalEC += ec;
+                    totalPH += ph;
+                    totalWater += water;
+                    totalLight += light;
+                    count++;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${date}</td>
+                        <td>${temp}</td>
+                        <td>${humidity}</td>
+                        <td>${ec}</td>
+                        <td>${ph}</td>
+                        <td>${water}</td>
+                        <td>${light}</td>
+                        <td><a href="${imageUrl}" target="_blank">${imageUrl}</a></td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+
+                // คำนวณค่าเฉลี่ย
+                if (count > 0) {
+                    document.getElementById('avg-temp').textContent = (totalTemp / count).toFixed(2);
+                    document.getElementById('avg-humidity').textContent = (totalHumidity / count).toFixed(2);
+                    document.getElementById('avg-ec').textContent = (totalEC / count).toFixed(2);
+                    document.getElementById('avg-ph').textContent = (totalPH / count).toFixed(2);
+                    document.getElementById('avg-water').textContent = (totalWater / count).toFixed(2);
+                    document.getElementById('avg-light').textContent = (totalLight / count).toFixed(2);
+                }
+            } else {
+                const newRow = tableBody.insertRow();
+                const newCell = newRow.insertCell(0);
+                newCell.colSpan = 8;
+                newCell.textContent = "ไม่พบข้อมูล";
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
