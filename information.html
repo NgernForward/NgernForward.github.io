@@ -52,6 +52,37 @@
         .averages {
             flex: 0 0 30%;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8); 
+            padding: 20px; 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%; 
+            max-width: 700px; 
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -114,81 +145,103 @@
         </main>
     </div>
 
+    <!-- Modal for image -->
+    <div id="myModal" class="modal">
+        <span class="close" id="closeBtn">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Large Image">
+    </div>
+
     <script>
       async function fetchData() {
         const apiKey = 'AIzaSyCGrsJ6Dv9YDyISr0L4wpfh3dFsua_hKv8'; // ใส่ Google Sheets API Key ของคุณ
         const spreadsheetId = '1VUMZK4r1qx4F26SNQ6CuWnEUiehIpFPWtt-IyqWEYFA'; // ใส่ Spreadsheet ID ของคุณ
-    const range1 = 'AA1!A2:G'; // ดึงข้อมูลคอลัมน์ A ถึง G
-    const range2 = 'AA1!I2:I'; // ดึงข้อมูลคอลัมน์ I
+        const range1 = 'AA1!A2:G'; // ดึงข้อมูลคอลัมน์ A ถึง G
+        const range2 = 'AA1!I2:I'; // ดึงข้อมูลคอลัมน์ I
 
-    const url1 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range1}?key=${apiKey}`;
-    const url2 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range2}?key=${apiKey}`;
+        const url1 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range1}?key=${apiKey}`;
+        const url2 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range2}?key=${apiKey}`;
 
-    const [response1, response2] = await Promise.all([fetch(url1), fetch(url2)]);
-    const data1 = await response1.json();
-    const data2 = await response2.json();
+        const [response1, response2] = await Promise.all([fetch(url1), fetch(url2)]);
+        const data1 = await response1.json();
+        const data2 = await response2.json();
 
-    const tableBody = document.querySelector('#data-table tbody');
+        const tableBody = document.querySelector('#data-table tbody');
 
-    if (data1.values && data1.values.length > 0 && data2.values && data2.values.length > 0) {
-        let totalTemp = 0, totalHumidity = 0, totalEC = 0, totalPH = 0, totalWater = 0, totalLight = 0;
-        let count = 0;
+        if (data1.values && data1.values.length > 0 && data2.values && data2.values.length > 0) {
+            let totalTemp = 0, totalHumidity = 0, totalEC = 0, totalPH = 0, totalWater = 0, totalLight = 0;
+            let count = 0;
 
-        tableBody.innerHTML = '';
+            tableBody.innerHTML = '';
      
+            data1.values.forEach((row, index) => {
+                const date = row[0];
+                const temp = parseFloat(row[1]) || 0;
+                const humidity = parseFloat(row[2]) || 0;
+                const ec = parseFloat(row[3]) || 0;
+                const ph = parseFloat(row[4]) || 0;
+                const water = parseFloat(row[5]) || 0;
+                const light = parseFloat(row[6]) || 0;
+                const imageUrl = `${data2.values[index][0]}`; // ใช้ลิงก์ที่ปรับใหม่
 
-        data1.values.forEach((row, index) => {
-            const date = row[0];
-            const temp = parseFloat(row[1]) || 0;
-            const humidity = parseFloat(row[2]) || 0;
-            const ec = parseFloat(row[3]) || 0;
-            const ph = parseFloat(row[4]) || 0;
-            const water = parseFloat(row[5]) || 0;
-            const light = parseFloat(row[6]) || 0;
-            const imageUrl = `${data2.values[index][0]}`; // ใช้ลิงก์ที่ปรับใหม่
+                totalTemp += temp;
+                totalHumidity += humidity;
+                totalEC += ec;
+                totalPH += ph;
+                totalWater += water;
+                totalLight += light;
+                count++;
 
-          
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${date}</td>
+                    <td>${temp}</td>
+                    <td>${humidity}</td>
+                    <td>${ec}</td>
+                    <td>${ph}</td>
+                    <td>${water}</td>
+                    <td>${light}</td>
+                    <td><img src="${imageUrl}" style="width:100px; height:auto; cursor:pointer;" onclick="openModal('${imageUrl}')"></td>`;
 
-            totalTemp += temp;
-            totalHumidity += humidity;
-            totalEC += ec;
-            totalPH += ph;
-            totalWater += water;
-            totalLight += light;
-            count++;
+                tableBody.appendChild(tr);
+            });
 
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${date}</td>
-                <td>${temp}</td>
-                <td>${humidity}</td>
-                <td>${ec}</td>
-                <td>${ph}</td>
-                <td>${water}</td>
-                <td>${light}</td>
-                <td><a href="${imageUrl}" target="_blank"><img src="${imageUrl}" style="width:100px; height:auto;"></a></td> `;
-
-            tableBody.appendChild(tr);
-        });
-
-        // คำนวณค่าเฉลี่ย
-        if (count > 0) {
-            document.getElementById('avg-temp').textContent = (totalTemp / count).toFixed(2);
-            document.getElementById('avg-humidity').textContent = (totalHumidity / count).toFixed(2);
-            document.getElementById('avg-ec').textContent = (totalEC / count).toFixed(2);
-            document.getElementById('avg-ph').textContent = (totalPH / count).toFixed(2);
-            document.getElementById('avg-water').textContent = (totalWater / count).toFixed(2);
-            document.getElementById('avg-light').textContent = (totalLight / count).toFixed(2);
+            // คำนวณค่าเฉลี่ย
+            if (count > 0) {
+                document.getElementById('avg-temp').textContent = (totalTemp / count).toFixed(2);
+                document.getElementById('avg-humidity').textContent = (totalHumidity / count).toFixed(2);
+                document.getElementById('avg-ec').textContent = (totalEC / count).toFixed(2);
+                document.getElementById('avg-ph').textContent = (totalPH / count).toFixed(2);
+                document.getElementById('avg-water').textContent = (totalWater / count).toFixed(2);
+                document.getElementById('avg-light').textContent = (totalLight / count).toFixed(2);
+            }
+        } else {
+            const newRow = tableBody.insertRow();
+            const newCell = newRow.insertCell(0);
+            newCell.colSpan = 8;
+            newCell.textContent = "ไม่พบข้อมูล";
         }
-    } else {
-        const newRow = tableBody.insertRow();
-        const newCell = newRow.insertCell(0);
-        newCell.colSpan = 8;
-        newCell.textContent = "ไม่พบข้อมูล";
     }
-}
 
-fetchData();
+    function openModal(imageUrl) {
+        const modal = document.getElementById("myModal");
+        const modalImage = document.getElementById("modalImage");
+        modal.style.display = "block";
+        modalImage.src = imageUrl;
+    }
+
+    document.getElementById("closeBtn").onclick = function() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    fetchData();
 
     </script>
     
