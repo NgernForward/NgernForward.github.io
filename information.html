@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Matemasie&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=TH+Sarabun+New:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Matemasie&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=TH+Sarabun+New:wght@400;700&display=swap"
+            rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
         body {
             font-family: 'TH Sarabun New', sans-serif;
             margin: 0;
-            padding: 20px;
+           
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
+thead {
+    position: sticky; /* ทำให้หัวตารางติดอยู่ที่ด้านบน */
+    top: 0; /* กำหนดให้หัวตารางอยู่ที่ด้านบน */
+    background-color: #f2f2f2; /* สีพื้นหลังของหัวตาราง */
+    z-index: 10; /* ทำให้หัวตารางอยู่เหนือเนื้อหาของตาราง */
+}
 
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e6f7ff;
+}
         th {
             background-color: #f2f2f2;
             font-weight: bold;
@@ -98,80 +116,100 @@
         color: black;
         }
     </style>
-</head>
+    </head>
 
-<body>
-    <div class="container">
-        <header>
-            <img src="image/ตรามอ.png" alt="โลโก้ตรามอ" class="logo">
-            <div class="divider"></div>
-            <div class="header-text">
-                <div class="fixed-message">
-                    เว็บไซต์นี้จัดทำเพื่อการแสดงผลข้อมูลโรงเรือนปลูกผักกาดคอส สาขาอุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
+    <body>
+        <div class="container">
+            <header>
+                <img src="image/ตรามอ.png" alt="โลโก้ตรามอ" class="logo">
+                <div class="divider"></div> <!-- เส้นแบ่ง -->
+                <div class="header-text">
+                    <div class="fixed-message">
+                        เว็บไซต์นี้จัดทำเพื่อการแสดงผลข้อมูลโรงเรือนปลูกผักกาดคอส สาขาครุศาสตร์อุตสาหกรรมคอมพิวเตอร์  คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
+                    </div>
+                    <h1>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
+                    <h2>สาขาครุศาสตร์อุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน <br> วิทยาเขตขอนแก่น</h2>
+                 
                 </div>
-                <h1>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
-                <h2>สาขาอุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น</h2>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">หน้าแรก</a></li>
-                        <li><a href="project.html">เกี่ยวกับโครงการ</a></li>
-                        <li><a href="information.html">ข้อมูลการปลูก</a></li>
-                        <li><a href="team.html">คณะผู้จัดทำ</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+                
+            </header>
+            <nav>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="project.html">เกี่ยวกับโครงการ</a></li>
+                    <li><a href="information.html">ข้อมูลการปลูก</a></li>
+                    <li><a href="team.html">คณะผู้จัดทำ</a></li>
+                </ul>
+            </nav>
+            <main>
+                <section class="flex-container">
+                    <div class="half-section instructions">
+                        <h1
+                            class="AA">ข้อมูลการปลูกจากโรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
 
-        <main>
-            <section class="flex-container">
-                <div class="half-section instructions">
-                    <h1 class="AA">ข้อมูลการปลูกจากโรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
+                        <div class="table-container">
+                            <table id="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>วันที่</th>
+                                        <th>อุณหภูมิ</th>
+                                        <th>ความชื้น</th>
+                                        <th>ค่า EC</th>
+                                        <th>ค่า pH</th>
+                                        <th>ระดับน้ำ</th>
+                                        <th>ระดับแสง</th>
+                                        <th>ภาพ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- ข้อมูลจะถูกเพิ่มที่นี่ผ่าน JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <style>
+                    .table-container {
+                        max-height: 1200px; /* Adjust the height as needed */
+                        overflow-y: auto; /* Enable vertical scrolling */
+                        border: 1px solid #ccc; /* Optional: add a border around the table */
+                        margin-top: 0px; /* Optional: add some margin */
+                    }
+                </style>
 
-                    <table id="data-table">
-                        <thead>
-                            <tr>
-                                <th>วันที่</th>
-                                <th>อุณหภูมิ</th>
-                                <th>ความชื้น</th>
-                                <th>ค่า EC</th>
-                                <th>ค่า pH</th>
-                                <th>ระดับน้ำ</th>
-                                <th>ระดับแสง</th>
-                                <th>ภาพ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- ข้อมูลจะถูกเพิ่มที่นี่ผ่าน JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="half-section averages">
+                        <h2>ค่าเฉลี่ย</h2>
+                        <p>อุณหภูมิ: <span id="avg-temp">xx</span> Celsius</p>
+                        <p>ความชื้น: <span id="avg-humidity">xx</span>
+                            percentage</p>
+                        <p>ค่า EC: <span id="avg-ec">xx</span> ms/cm</p>
+                        <p>ค่า pH: <span id="avg-ph">xx</span></p>
+                        <p>ระดับน้ำ: <span id="avg-water">xx</span>
+                            percentage</p>
+                        <p>ระดับแสง: <span id="avg-light">xx</span>
+                            percentage</p>
 
-                <div class="half-section averages">
-                    <h2>ค่าเฉลี่ย</h2>
-                    <p>อุณหภูมิ: <span id="avg-temp">xx</span>  Celsius</p>
-                    <p>ความชื้น: <span id="avg-humidity">xx</span>  percentage</p>
-                    <p>ค่า EC: <span id="avg-ec">xx</span>  ms/cm</p>
-                    <p>ค่า pH: <span id="avg-ph">xx</span></p>
-                    <p>ระดับน้ำ: <span id="avg-water">xx</span>  percentage</p>
-                    <p>ระดับแสง: <span id="avg-light">xx</span>  percentage</p>
+                        <!-- กราฟแยกแต่ละข้อมูล -->
+                        <h2>กราฟแสดงค่าเฉลี่ย</h2>
+                        <canvas id="tempChart"></canvas>
+                        <canvas id="humidityChart"></canvas>
+                        <canvas id="ecChart"></canvas>
+                        <canvas id="phChart"></canvas>
+                        <canvas id="waterChart"></canvas>
+                        <canvas id="lightChart"></canvas>
+                    </div>
 
-                    <!-- กราฟค่าเฉลี่ย -->
-                    <h2>กราฟแสดงฟังก์ชันค่าเฉลี่ย</h2>
-                    <p>***เลือกที่ปุ่มสีที่ต้องการแสดงกราฟค่าเฉลี่ย***</p>
-                    <canvas id="averageChart"></canvas>
-                </div>
-            </section>
-        </main>
-    </div>
- 
-    <!-- Modal for image -->
-    <div id="myModal" class="modal">
-    
-        <span class="close" id="closeBtn">&times;</span>
-        <img class="modal-content" id="modalImage" alt="Large Image">
-    </div>
+                </section>
+            </main>
+        </div>
 
-    <script>
+        <!-- Modal for image -->
+        <div id="myModal" class="modal">
+
+            <span class="close" id="closeBtn">&times;</span>
+            <img class="modal-content" id="modalImage" alt="Large Image">
+        </div>
+
+        <script>
         let allData = [];
 
         async function fetchData() {
@@ -242,70 +280,129 @@
         }
 
         function drawAverageChart(data) {
-            const ctx = document.getElementById('averageChart').getContext('2d');
-            const labels = data.map(item => item.date);
+    const labels = data.map(item => item.date);
 
-            const avgData = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'อุณหภูมิ',
-                        data: data.map(item => item.temp),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1,
-                    },
-                    {
-                        label: 'ความชื้น',
-                        data: data.map(item => item.humidity),
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                    },
-                    {
-                        label: 'ค่า EC',
-                        data: data.map(item => item.ec),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                    },
-                    {
-                        label: 'ค่า pH',
-                        data: data.map(item => item.ph),
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1,
-                    },
-                    {
-                        label: 'ระดับน้ำ',
-                        data: data.map(item => item.water),
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1,
-                    },
-                    {
-                        label: 'ระดับแสง',
-                        data: data.map(item => item.light),
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderColor: 'rgba(255, 206, 86, 1)',
-                        borderWidth: 1,
-                    }
-                ]
-            };
-
-            new Chart(ctx, {
-                type: 'line',
-                data: avgData,
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        }
-                    }
-                }
-            });
+    // อุณหภูมิ
+    new Chart(document.getElementById('tempChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'อุณหภูมิ',
+                data: data.map(item => item.temp),
+                backgroundColor: 'rgba(255, 99, 132, 0.8)',
+       
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
         }
+    });
+
+    // ความชื้น
+    new Chart(document.getElementById('humidityChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ความชื้น',
+                data: data.map(item => item.humidity),
+                backgroundColor: 'rgba(54, 162, 235, 0.8)',
+      
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // ค่า EC
+    new Chart(document.getElementById('ecChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ค่า EC',
+                data: data.map(item => item.ec),
+                backgroundColor: 'rgba(75, 192, 192, 0.8)',
+       
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // ค่า pH
+    new Chart(document.getElementById('phChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ค่า pH',
+                data: data.map(item => item.ph),
+                backgroundColor: 'rgba(153, 102, 255, 0.8)',
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // ระดับน้ำ
+    new Chart(document.getElementById('waterChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ระดับน้ำ',
+                data: data.map(item => item.water),
+                backgroundColor: 'rgba(255, 159, 64, 0.8)',
+          
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // ระดับแสง
+    new Chart(document.getElementById('lightChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'ระดับแสง',
+                data: data.map(item => item.light),
+                backgroundColor: 'rgba(255, 206, 86, 0.8)',
+         
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+
 
         function openImageModal(imageUrl) {
             const modal = document.getElementById('myModal');
@@ -328,5 +425,5 @@
 
         fetchData();
     </script>
-</body>
+    </body>
 </html>
