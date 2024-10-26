@@ -391,3 +391,36 @@ li{
     width: 30%; /* กำหนดความกว้างของภาพผักคอส */
     height: auto; /* ให้ความสูงปรับตามอัตราส่วน */
 }
+
+.imggg{
+width: 250px;
+height: auto;
+align-items: center;
+}
+
+.GG{
+    font-family: "Prompt", sans-serif;
+  font-weight: 600;
+  font-style: Bold;
+  font-size: 20px;
+  text-align: center;
+  color: rgb(0, 55, 113);}
+  
+  .GG2{
+    font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: Bold;
+  font-size: 15px;
+  text-align: center;
+  color: rgb(0, 0, 0);}
+  
+  .tata{
+  width: 80%;
+  }
+  .GG3{
+    font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  font-style: Bold;
+  font-size: 20px;
+  text-align: left;
+  color: rgb(34, 34, 34);}
