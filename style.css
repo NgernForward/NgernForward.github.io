@@ -277,7 +277,13 @@ nav ul li:nth-child(4) {
     background-color: #f7e96b; /* สีพื้นหลังช่อง 4 */
 }
 nav ul li:nth-child(4) a {
-    color: #003366; /* สีข้อความช่อง 4 */
+    color: #003366; /* สีข้อความช่อง 5 */
+}
+nav ul li:nth-child(5) {
+  background-color: #003366; /* สีพื้นหลังช่อง 3 */
+}
+nav ul li:nth-child(5) a {
+  color: #ffffff; /* สีข้อความช่อง 5 */
 }
 
 /* สีเมื่อเมาส์วางบน */
