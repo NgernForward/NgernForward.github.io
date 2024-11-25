@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="th">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Matemasie&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=TH+Sarabun+New:wght@400;700&display=swap"
+            rel="stylesheet">
+            
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+        <style>
+        body {
+            font-family: 'TH Sarabun New', sans-serif;
+            margin: 0;
+        }
+
+        /* ซ่อนทุกสิ่งที่ไม่ต้องการแสดง */
+        #data-output {
+            display: none;
+        }
+
+        /* ซ่อนส่วนที่ไม่จำเป็น */
+        .hidden {
+            display: none;
+        }
+        
+        canvas {
+    width: 100%;
+    height: 400px;
+    border: 3px solid #ccc;  /* กำหนดเส้นขอบเพื่อให้เห็นกรอบ */
+    margin-bottom: 20px;  /* เพิ่มระยะห่างระหว่างกราฟ */
+}
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <img src="image/ตรามอ.png" alt="โลโก้ตรามอ" class="logo">
+                <div class="divider"></div> <!-- เส้นแบ่ง -->
+                <div class="header-text">
+                    <div class="fixed-message">
+                        เว็บไซต์นี้จัดทำเพื่อการแสดงผลข้อมูลโรงเรือนปลูกผักกาดคอส สาขาครุศาสตร์อุตสาหกรรมคอมพิวเตอร์  คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น
+                    </div>
+                    <h1>โรงเรือนปลูกผักกาดคอสอัตโนมัติ</h1>
+                    <h2>สาขาครุศาสตร์อุตสาหกรรมคอมพิวเตอร์ คณะครุศาสตร์อุตสาหกรรม มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน <br> วิทยาเขตขอนแก่น</h2>
+                </div>
+            </header>
+            <nav>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="project.html">เกี่ยวกับโครงการ</a></li>
+                    <li><a href="information.html">ข้อมูลการปลูก</a></li>
+                    <li><a href="statistics.html">สถิติการปลูก</a></li>
+                    <li><a href="team.html">คณะผู้จัดทำ</a></li>
+                </ul>
+            </nav>
+            <main>
+                <section class="flex-container">
+                    <div class="half-section averages">
+                        <h2>กราฟแสดงข้อมูล</h2>
+                        <canvas id="temperatureChart"></canvas>
+                        <canvas id="humidityChart"></canvas>
+                        <canvas id="ecChart"></canvas>
+                        <canvas id="phChart"></canvas>
+                        <canvas id="waterLevelChart"></canvas>
+                        <canvas id="lightLevelChart"></canvas>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script>
+        let allData = [];
+
+        async function fetchData() {
+            const apiKey = 'AIzaSyCGrsJ6Dv9YDyISr0L4wpfh3dFsua_hKv8'; 
+            const spreadsheetId = '1VUMZK4r1qx4F26SNQ6CuWnEUiehIpFPWtt-IyqWEYFA'; 
+            const range1 = 'AA1!A2:G';
+            const range2 = 'AA1!I2:I';
+
+            const url1 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range1}?key=${apiKey}`;
+            const url2 = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range2}?key=${apiKey}`;
+
+            const [response1, response2] = await Promise.all([fetch(url1), fetch(url2)]);
+            const data1 = await response1.json();
+            const data2 = await response2.json();
+
+            if (data1.values && data1.values.length > 0 && data2.values && data2.values.length > 0) {
+                allData = [];
+                data1.values.forEach((row, index) => {
+                    const date = row[0];
+                    const temp = parseFloat(row[1]) || 0;
+                    const humidity = parseFloat(row[2]) || 0;
+                    const water = parseFloat(row[3]) || 0;
+                    const light= parseFloat(row[4]) || 0;
+                    const ec = parseFloat(row[5]) || 0;
+                    const ph = parseFloat(row[6]) || 0;
+                    const imageUrl = `${data2.values[index][0]}`;
+
+                    allData.push({ date, temp, humidity, ec, ph, water, light, imageUrl });
+                });
+
+                // แสดงกราฟ
+                renderCharts();
+            }
+        }
+
+        function renderCharts() {
+            const dates = allData.map(data => data.date);
+            const temperature = allData.map(data => data.temp);
+            const humidity = allData.map(data => data.humidity);
+            const ec = allData.map(data => data.ec);
+            const ph = allData.map(data => data.ph);
+            const water = allData.map(data => data.water);
+            const light = allData.map(data => data.light);
+
+          
+       // กราฟแสดงอุณหภูมิ
+// กราฟแสดงอุณหภูมิ
+const temperatureChart = new Chart(document.getElementById('temperatureChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'อุณหภูมิ (°C)',
+            data: temperature,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'temperature (°C)',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 18,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '50%'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 26,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '70%'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+
+
+// กราฟแสดงความชื้น
+const humidityChart = new Chart(document.getElementById('humidityChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'ความชื้น (%)',
+            data: humidity,
+            borderColor: 'green',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'Humidity (%)',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 50,
+                        borderColor: 'orange',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '50%'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 70,
+                        borderColor: 'orange',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '70%'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+// กราฟแสดง EC
+const ecChart = new Chart(document.getElementById('ecChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'EC (mS/cm)',
+            data: ec,
+            borderColor: 'red',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'EC (mS/cm)',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 1.5,
+                        borderColor: 'purple',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '1.5 mS/cm'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 2.5,
+                        borderColor: 'purple',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '2.5 mS/cm'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+// กราฟแสดง pH
+const phChart = new Chart(document.getElementById('phChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'pH Value',
+            data: ph,
+            borderColor: 'green',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'pH Value',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 6.0,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '6.0'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 6.5,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '6.5'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+// กราฟแสดงระดับน้ำ
+const waterLevelChart = new Chart(document.getElementById('waterLevelChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Water Level (%)',
+            data: water,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'Water Level (%)',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 10,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '10%'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 90,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '90%'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+// กราฟแสดงความเข้มแสง
+const lightLevelChart = new Chart(document.getElementById('lightLevelChart'), {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Light Level',
+            data: light,
+            borderColor: 'purple',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                title: {
+                    display: true,
+                    text: 'Light Level',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'DATE',
+                    color: 'teal',
+                    font: {
+                        size: 30,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 60,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '60'
+                        }
+                    },
+                    {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: 80,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: '80'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+});
+
+        }
+
+        // โหลดข้อมูลเมื่อหน้าเว็บโหลด
+        window.onload = fetchData;
+        </script>
+    </body>
+</html>
