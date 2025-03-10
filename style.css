@@ -226,12 +226,6 @@ h2 {
     margin-top: 10px; /* ระยะห่างด้านบน */
 }
 
-h3 {
-    font-size: 1.4em; /* ขนาดฟอนต์ของ h2 */
-    color: #FF0000; /* กำหนดสีของ h2 */
-    margin-bottom: 0; /* ระยะห่างด้านล่าง */
-    margin-top: 10px; /* ระยะห่างด้านบน */
-}
 h4 {
     font-size: 1.2em; /* ขนาดฟอนต์ของ h4 */
     color: #06568f; /* กำหนดสีของ h4 */
@@ -329,10 +323,26 @@ nav ul li:active {
 }
 
 h3 {
-    font-size: 1.8em; /* ขนาดฟอนต์ของ h3 */
-    color: #f57c00; /* กำหนดสีของ h3 */
-    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+  font-size: 1.8em; /* ขนาดฟอนต์ของ h3 */
+  color: #041d56; /* กำหนดสีของ h3 */
+  margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+  border: 4px solid #2f2f2f; /* เส้นขอบรอบ h3 */
+  padding: 10px; /* ระยะห่างภายในกล่อง */
+  display: inline-block; /* ปรับขนาดกล่องให้พอดีกับข้อความ */
+  border-radius: 5px; /* ทำให้ขอบมน */
+  background-color: #ffe99a; /* พื้นหลังกล่อง */
 }
+h4 {
+  font-size: 1.5em; /* ขนาดฟอนต์ของ h3 */
+  color: #333333; /* กำหนดสีของ h3 */
+  margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+  border: 4px solid #2f2f2f; /* เส้นขอบรอบ h3 */
+  padding: 10px; /* ระยะห่างภายในกล่อง */
+  display: inline-block; /* ปรับขนาดกล่องให้พอดีกับข้อความ */
+  border-radius: 5px; /* ทำให้ขอบมน */
+  background-color: #ffc8c8; /* พื้นหลังกล่อง */
+}
+
 
 .fixed-message {
     position: fixed; /* ตำแหน่งเป็น fixed */
